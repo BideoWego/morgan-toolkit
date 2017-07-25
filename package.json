@@ -1,0 +1,14 @@
+{
+  "name": "morgan-toolkit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bideowego@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "cli-highlight": "^1.1.4"
+  }
+}
