@@ -4,11 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "which nodemon > /dev/null && nodemon --exec \"npm run jasmine\" || npm run jasmine",
+    "jasmine": "node_modules/.bin/jasmine"
   },
   "author": "bideowego@gmail.com",
   "license": "MIT",
   "dependencies": {
+    "chalk": "^2.0.1",
     "cli-highlight": "^1.1.4"
+  },
+  "devDependencies": {
+    "jasmine": "^2.6.0",
+    "morgan": "^1.8.2"
   }
 }
