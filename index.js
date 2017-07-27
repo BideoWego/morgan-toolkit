@@ -93,7 +93,9 @@ const createFormat = (format, morgan, reqPropertiesToken) => {
 
 
 
-
+// ----------------------------------------
+// Exports
+// ----------------------------------------
 module.exports = (morgan) => {
   if (!morgan && typeof morgan !== 'function') {
     throw "Must pass morgan as param when requiring morgan toolkit";

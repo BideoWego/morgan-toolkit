@@ -28,8 +28,15 @@ describe('Morgan Toolkit', () => {
 
     it('outputs request objects as json strings', () => {
 
-      var _str = '';
+      // Str to collect output
+      let _str = '';
 
+      // Get the middleware function
+      // and mock the stream write
+      // to append to the string
+      //
+      // Set to log immediately
+      // otherwise string is empty
       const mw = morganToolkit('tiny', {
         immediate: true,
         stream: {
@@ -39,7 +46,7 @@ describe('Morgan Toolkit', () => {
         }
       });
 
-
+      // Mock request
       mw({
         method: 'GET',
         url: '/',
@@ -51,15 +58,20 @@ describe('Morgan Toolkit', () => {
       }, {}, () => {});
 
 
-      const j = (str) => {
-        str = JSON.stringify(str, null, 2)
-        return highlight(str, {
+      // Stringify object and syntax
+      // highlight so we can accurately
+      // compare it to what would be logged
+      const j = (obj) => {
+        obj = JSON.stringify(obj, null, 2)
+        return highlight(obj, {
           language: 'json',
           ignoreIllegals: true
         });
       };
 
 
+      // Check output for substrings
+      // matching the request objects
       expect(
         _str.indexOf(j({ fiz: 'baz' })) > -1
       ).toBe(true);
