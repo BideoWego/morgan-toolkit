@@ -1,12 +1,19 @@
 {
   "name": "morgan-toolkit",
   "version": "1.0.1",
-  "description": "",
+  "description": "Adds syntax highlighted logging of request objects: query, params, body, session, user to the Morgan logging package. Other features in development.",
   "main": "index.js",
   "scripts": {
     "test": "which nodemon > /dev/null && nodemon --exec \"npm run jasmine\" || npm run jasmine",
     "jasmine": "node_modules/.bin/jasmine"
   },
+  "keywords": [
+    "morgan",
+    "syntax",
+    "highlight",
+    "log",
+    "logging"
+  ],
   "author": "bideowego@gmail.com",
   "license": "MIT",
   "dependencies": {
@@ -16,5 +23,10 @@
   "devDependencies": {
     "jasmine": "^2.6.0",
     "morgan": "^1.8.2"
+  },
+  "homepage": "https://github.com/BideoWego/morgan-toolkit/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BideoWego/morgan-toolkit/"
   }
 }
