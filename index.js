@@ -96,17 +96,28 @@ const createFormat = (format, morgan, reqPropertiesToken) => {
 // ----------------------------------------
 // Exports
 // ----------------------------------------
-module.exports = (morgan) => {
+module.exports = (morgan, options={}) => {
+
+  // Throw if we don't have a morgan instance
   if (!morgan && typeof morgan !== 'function') {
     throw "Must pass morgan as param when requiring morgan toolkit";
   }
 
-  // Tokens
+  // Add additional req properties to be logged
+  if (options.req) {
+    options.req.forEach(
+      property => reqProperties.push(property)
+    );
+  }
+
+  // Set up tokens
   morgan.token('separator', () => '****');
   morgan.token('newline', () => "\n");
   morgan.token(reqPropertiesToken.substr(1), reqPropertyExtractor);
   morgan.token('status', statusColorizor);
 
+  // Return the wrapper for the morgan middleware
+  // function
   return (format='tiny', options={}) => {
     format = createFormat(format, morgan, reqPropertiesToken);
     return morgan(format, options);
