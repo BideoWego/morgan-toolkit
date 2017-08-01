@@ -29,6 +29,26 @@ const morganToolkit = require('morgan-toolkit')(morgan);
 app.use(morganToolkit());
 ```
 
+### Logging Additional `req` Properties
+
+Morgan Toolkit logs the following `req` properties by default:
+
+* query
+* params
+* body
+* session
+* user
+
+Additional properties can be added by passing an options object when requiring the module:
+
+
+```javascript
+const morgan = require('morgan');
+const morganToolkit = require('morgan-toolkit')(morgan, {
+  req: ['cookies', 'signedCookies']
+});
+```
+
 
 ## Example Output
 
