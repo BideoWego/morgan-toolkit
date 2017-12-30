@@ -41,6 +41,8 @@ Morgan Toolkit logs the following `req` properties by default:
 * cookies
 * signedCookies
 
+As of `v1.1.0` Morgan Toolkit logs `cookies` and `signedCookies` by default when present.
+
 Additional properties can be added by passing an options object when requiring the module:
 
 
@@ -48,6 +50,35 @@ Additional properties can be added by passing an options object when requiring t
 const morgan = require('morgan');
 const morganToolkit = require('morgan-toolkit')(morgan, {
   req: ['anotherProperty', 'yetAnotherProperty']
+});
+```
+
+
+### Filtering Keys on `req` Properties
+
+As of `v1.2.0`, Morgan Toolkit supports filtering shallow keys on `req` properties. You can specify keys on properties to be filtered by passing a `filter` object in the options when requiring the module. You may specify a single key or an array of keys to filter on each `req` property.
+
+```javascript
+const morgan = require('morgan');
+const morganToolkit = require('morgan-toolkit')(morgan, {
+  filter: {
+    user: 'password',
+    params: ['password', 'secret']
+  }
+});
+```
+
+### Whitelisting Keys on `req` Properties
+
+As of `v1.2.0`, Morgan Toolkit supports whitelisting shallow keys on `req` properties. You can specify keys on properties to be whitelisted by passing a `whitelist` object in the options when requiring the module. You may specify a single key or an array of keys to whitelist on each `req` property.
+
+```javascript
+const morgan = require('morgan');
+const morganToolkit = require('morgan-toolkit')(morgan, {
+  whitelist: {
+    user: 'username',
+    params: ['id']
+  }
 });
 ```
 

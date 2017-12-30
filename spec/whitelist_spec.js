@@ -4,25 +4,13 @@ const highlight = require('cli-highlight').highlight;
 
 
 describe('Config', () => {
-
-  it('takes morgan as the first parameter', () => {
-    expect(() => {
-      morganToolkitConfig(morgan);
-    }).not.toThrow();
-  });
-
-
-  it('throws error when morgan is not passed', () => {
-    expect(() => {
-      morganToolkitConfig();
-    }).toThrow();
-  });
-
-
-  it('optionally allows additional req properties to be logged', () => {
+  it('optionally allows filtering keys in objects', () => {
 
       const morganToolkit = morganToolkitConfig(morgan, {
-        req: ['foobars', 'fizbazes']
+        whitelist: {
+          user: 'username',
+          params: ['id']
+        }
       });
 
       // Str to collect output
@@ -47,8 +35,8 @@ describe('Config', () => {
       mw({
         method: 'GET',
         url: '/',
-        foobars: { foobars: true },
-        fizbazes: { fizbazes: true }
+        user: { password: 'foobar', username: 'fizbaz' },
+        params: { id: 1, password: 'barfoo', secret: 'bazfiz' }
       }, {}, () => {});
 
 
@@ -67,11 +55,11 @@ describe('Config', () => {
       // Check output for substrings
       // matching the request objects
       expect(
-        _str.indexOf(j({ foobars: true })) > -1
+        _str.indexOf(j({ username: 'fizbaz' })) > -1
       ).toBe(true);
 
       expect(
-        _str.indexOf(j({ fizbazes: true })) > -1
+        _str.indexOf(j({ id: 1 })) > -1
       ).toBe(true);
     });
 });

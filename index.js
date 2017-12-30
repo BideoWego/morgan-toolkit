@@ -41,7 +41,7 @@ const reqProperties = [
 // Extracts request properties and
 // returns them as a syntax highlighted
 // JSON string
-const reqPropertyExtractor = (req, res) => {
+const reqPropertyExtractor = options => (req, res) => {
 
   let data = [];
 
@@ -51,7 +51,19 @@ const reqPropertyExtractor = (req, res) => {
     let value = req[key];
 
     if (value) {
-      value = JSON.stringify(value, null, 2);
+      if (options.filter && options.filter[key]) {
+        let keys = options.filter[key];
+        (Array.isArray(keys)) || (keys = [keys]);
+        keys.forEach(k => value[k] = "[FILTERED]");
+      }
+
+      let replacer = null;
+      if (options.whitelist && options.whitelist[key]) {
+        replacer = options.whitelist[key];
+        (Array.isArray(replacer)) || (replacer = [replacer]);
+      }
+
+      value = JSON.stringify(value, replacer, 2);
 
       value = highlight(value, {
         language: 'json',
@@ -115,7 +127,7 @@ module.exports = (morgan, options={}) => {
   // Set up tokens
   morgan.token('separator', () => '****');
   morgan.token('newline', () => "\n");
-  morgan.token(reqPropertiesToken.substr(1), reqPropertyExtractor);
+  morgan.token(reqPropertiesToken.substr(1), reqPropertyExtractor(options));
   morgan.token('status', statusColorizor);
 
   // Return the wrapper for the morgan middleware
