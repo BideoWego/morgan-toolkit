@@ -32,7 +32,9 @@ const reqProperties = [
   'params',
   'body',
   'session',
-  'user'
+  'user',
+  'cookies',
+  'signedCookies'
 ];
 
 

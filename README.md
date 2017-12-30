@@ -38,6 +38,8 @@ Morgan Toolkit logs the following `req` properties by default:
 * body
 * session
 * user
+* cookies
+* signedCookies
 
 Additional properties can be added by passing an options object when requiring the module:
 
@@ -45,7 +47,7 @@ Additional properties can be added by passing an options object when requiring t
 ```javascript
 const morgan = require('morgan');
 const morganToolkit = require('morgan-toolkit')(morgan, {
-  req: ['cookies', 'signedCookies']
+  req: ['anotherProperty', 'yetAnotherProperty']
 });
 ```
 
