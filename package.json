@@ -1,6 +1,6 @@
 {
   "name": "morgan-toolkit",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Adds syntax highlighted logging of request objects: query, params, body, session, user to the Morgan logging package. Other features in development.",
   "main": "index.js",
   "scripts": {
