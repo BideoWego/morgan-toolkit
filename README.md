@@ -4,8 +4,13 @@ by [BideoWego](https://github.com/BideoWego)
 
 View it on [NPM](https://www.npmjs.com/package/morgan-toolkit)
 
+This toolkit adds the following features to the [morgan](https://github.com/expressjs/morgan) logging package:
 
-Adds syntax highlighted logging of request objects: query, params, body, session, user to the Morgan logging package. Other features in development.
+- Syntax highlighted logs of request properties
+- Filtering of shallow keys in request properties
+- Whitelisting of shallow keys in request properties
+
+New features are added as ideas arise.
 
 
 ## Installation
@@ -19,6 +24,16 @@ $ npm install --save morgan-toolkit
 
 ## Usage
 
+Morgan Toolkit logs the following `req` properties by default:
+
+* query
+* params
+* body
+* session
+* user
+* cookies
+* signedCookies
+
 Basic Morgan Toolkit usage is almost identical to usage for [morgan](https://github.com/expressjs/morgan). The only difference being that you must pass the `morgan` instance to configure `morgan-toolkit` when requiring. The default format for the Morgan Toolkit is `'tiny'`, however all `morgan` formats are supported.
 
 
@@ -31,17 +46,7 @@ app.use(morganToolkit());
 
 ### Logging Additional `req` Properties
 
-Morgan Toolkit logs the following `req` properties by default:
-
-* query
-* params
-* body
-* session
-* user
-* cookies
-* signedCookies
-
-As of `v1.1.0` Morgan Toolkit logs `cookies` and `signedCookies` by default when present.
+As of `v1.1.0` Morgan Toolkit logs `cookies` and `signedCookies` by default.
 
 Additional properties can be added by passing an options object when requiring the module:
 
