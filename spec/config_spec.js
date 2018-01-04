@@ -25,23 +25,8 @@ describe('Config', () => {
         req: ['foobars', 'fizbazes']
       });
 
-      // Str to collect output
-      let _str = '';
-
-      // Get the middleware function
-      // and mock the stream write
-      // to append to the string
-      //
-      // Set to log immediately
-      // otherwise string is empty
-      const mw = morganToolkit('tiny', {
-        immediate: true,
-        stream: {
-          write: (s) => {
-            _str += s;
-          }
-        }
-      });
+      const stream = mockStream();
+      const mw = mockRequest(stream, morganToolkit);
 
       // Mock request
       mw({
@@ -52,37 +37,9 @@ describe('Config', () => {
       }, {}, () => {});
 
 
-      // Stringify object and syntax
-      // highlight so we can accurately
-      // compare it to what would be logged
-      const j = (obj) => {
-        obj = JSON.stringify(obj, null, 2)
-        return highlight(obj, {
-          language: 'json',
-          ignoreIllegals: true
-        });
-      };
-
-
       // Check output for substrings
       // matching the request objects
-      expect(
-        _str.indexOf(j({ foobars: true })) > -1
-      ).toBe(true);
-
-      expect(
-        _str.indexOf(j({ fizbazes: true })) > -1
-      ).toBe(true);
+      expect(stream.output).toContain(j({ foobars: true }));
+      expect(stream.output).toContain(j({ fizbazes: true }));
     });
 });
-
-
-
-
-
-
-
-
-
-
-
